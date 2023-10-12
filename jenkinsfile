@@ -1,0 +1,70 @@
+pipeline {
+    agent any 
+      
+    tools{
+        jdk 'jdk11'
+        maven 'maven3'
+    }
+    
+    stages{
+        stage('clean workspace'){
+             steps{
+                 cleanWs()
+             }
+         }
+        stage("Git Checkout"){
+            steps{
+                git 'https://github.com/Aj7Ay/amazon-eks-jenkins-terraform-aj7.git'
+            }
+        }
+        
+        stage("Maven Compile"){
+            steps{
+                sh "mvn clean compile"
+            }
+        }
+        stage("Sonarqube Analysis "){
+            steps{
+                script{
+                withSonarQubeEnv(credentialsId: 'Sonar-token') {
+                sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
+        stage('Quality Gate'){
+            steps{
+                script{
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
+                }
+            }
+        }
+        stage("OWASP Dependency Check"){
+            steps{
+                dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+        stage("Build war file"){
+            steps{
+                sh " mvn clean install"
+            }
+        }
+        stage("Docker Build & Push"){
+            steps{
+                script{
+                withDockerRegistry(credentialsId: 'docker' , toolName: 'docker') {
+                        sh "docker build -t petclinic1 ."
+                        sh "docker tag petclinic1 rutikdevops/pet-clinic123:latest "
+                        sh "docker push rutikdevops/pet-clinic123:latest "
+                    }
+                }
+            }
+        }
+        stage("Deploy Using Docker"){
+            steps{
+                sh " docker run -d --name pet1 -p 8082:8080 rutikdevops/pet-clinic123:latest "
+            }
+        }
+    }
+}
