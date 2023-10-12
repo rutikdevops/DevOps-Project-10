@@ -18,6 +18,7 @@
 
 # Step 1 :-
 -  Launch an AWS T2 Large Instance. Use the image as Ubuntu. You can create a new key pair or use an existing one. Enable HTTP and HTTPS settings in the Security Group.
+<img width="948" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/8f7aa15f-43e5-4247-b0c9-bae2e9b89efb">
 
 # Step 2 :-
 - Install Jenkins, Docker and Trivy
