@@ -107,11 +107,13 @@ chmod 700 trivy.sh
 2 → SonarQube Scanner (Install without restart)
 - 3B — Configure Java and Maven in Global Tool Configuration
 - Goto Manage Jenkins → Tools → Install JDK and Maven3 → Click on Apply and Save
-- 3C — Create a Job
-- Label it as Real-World CI-CD, click on Pipeline and Ok.
+![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/af0f9860-1009-4ef1-9416-8d36fdff09c4)
+![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/9d25fa1b-4559-4ed8-9f39-b6360d8d628c)
 
+- 3C — Create a Job --> New Item --> Label it as Real-World CI-CD --> Pipeline --> OK
+![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/6bfa5926-bbc8-4c7f-8bba-0df71e70a90a)
 
-Enter this in Pipeline Script
+- Enter this in Pipeline Script
 ```bash
 pipeline {
     agent any 
@@ -146,7 +148,8 @@ pipeline {
 
 # Step 4 :-
 - Configure Sonar Server in Manage Jenkins
-Grab the Public IP Address of your EC2 Instance, Sonarqube works on Port 9000 , sp <Public IP>:9000. Goto your Sonarqube Server. Click on Administration → Security → Users → Click on Tokens and Update Token → Give it a name → and click on Generate Token
+- Grab the Public IP Address of your EC2 Instance, Sonarqube works on Port 9000 , sp <Public IP>:9000. Goto your Sonarqube Server. Click on Administration → Security → Users → Click on Tokens and Update Token → Give it a name → and click on Generate Token
+![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/3173b9cb-ad23-47ac-ac6a-79f4e0889c87)
 
 <img width="482" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/c3bae880-2c47-46f6-98dc-6877b9e5a233">
 
