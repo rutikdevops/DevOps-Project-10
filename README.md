@@ -152,7 +152,11 @@ pipeline {
 - ![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/3173b9cb-ad23-47ac-ac6a-79f4e0889c87)
 - ![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/b8d96e51-3130-4bba-afab-e26ec390a4f4)
 
-- Goto Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
+- Goto Dashboard → Manage Jenkins → Credentials → Global Credentials --> Add Credential --> Add Secret Text
+- ![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/80a76ad2-ebc6-468d-9ac5-d1f5ba42c2fc)
+
+- <img width="960" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/01e8e417-f66f-4387-af0c-ec2a2a2446f0">
+
 <img width="958" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/92829e38-a610-4eef-a84a-2e092a395d13">
 - Click on Add credentials :-
 <img width="960" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/b6513cdc-6b10-49c5-b6e4-0ed327a54c72">
