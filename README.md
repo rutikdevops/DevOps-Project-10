@@ -161,7 +161,7 @@ pipeline {
 - SonarQube --> Administration --> Configurations --> Webhooks --> Create
 <img width="959" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/fd64c1a6-c0ac-42c9-9ed9-48451c94f227">
 
-
+- Add this script in pipeline :-
 ```bash
         stage("Sonarqube Analysis "){
             steps{
@@ -184,58 +184,18 @@ pipeline {
 - To see the report, you can goto Sonarqube Server and goto Projects.
 <img width="960" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/f012fd67-f297-41cf-849d-7a2d6cb41140">
 
-Step 5 — Install OWASP Dependency Check Plugins
-GotoDashboard → Manage Jenkins → Plugins → OWASP Dependency-Check. Click on it and install without restart.
-
-First, we configured Plugin and next we have to configure Tool
-Goto Dashboard → Manage Jenkins → Tools →
-<img width="526" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/200479c7-639a-456e-af4a-f2e0c885f014">
 
 
-Now goto configure → Pipeline and add this stage to your pipeline
+# Step 5 :-
+- Install OWASP Dependency Check Plugins
+- GotoDashboard → Manage Jenkins → Plugins → OWASP Dependency-Check. Click on it and install without restart.
+- First, we configured Plugin and next we have to configure Tool
+- Goto Dashboard → Manage Jenkins → Tools → Dependency-Check installations
+![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/cfa564f3-8e3f-45b4-9a18-18b1f99028c3)
 
+
+- Now goto configure → Pipeline and add this stage to your pipeline
 ```bash
-pipeline {
-    agent any 
-      
-    tools{
-        jdk 'jdk11'
-        maven 'maven3'
-    }
-    
-    stages{
-        stage('clean workspace'){
-             steps{
-                 cleanWs()
-             }
-         }
-        stage("Git Checkout"){
-            steps{
-                git 'https://github.com/Aj7Ay/amazon-eks-jenkins-terraform-aj7.git'
-            }
-        }
-        
-        stage("Maven Compile"){
-            steps{
-                sh "mvn clean compile"
-            }
-        }
-        stage("Sonarqube Analysis "){
-            steps{
-                script{
-                withSonarQubeEnv(credentialsId: 'Sonar-token') {
-                sh 'mvn sonar:sonar'
-                    }
-                }
-            }
-        }
-        stage('Quality Gate'){
-            steps{
-                script{
-                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
-                }
-            }
-        }
         stage("OWASP Dependency Check"){
             steps{
                 dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'DP-Check'
@@ -247,31 +207,21 @@ pipeline {
                 sh " mvn clean install"
             }
         }
-    }
-}
 ```
 
 
-Step 6 — Docker Image Build and Push
-We need to install Docker tool in our system, Goto Dashboard → Manage Plugins → Available plugins → Search for Docker and install these plugins
-Docker
-Docker Commons
-Docker Pipeline
-Docker API
-docker-build-step
-and click on install without restart
+# Step 6 :-
+- Docker Image Build and Push
+- We need to install Docker tool in our system, Goto Dashboard → Manage Plugins → Available plugins → Search for Docker and install these plugins
+- Docker, Docker Commons, Docker Pipeline, Docker API, docker-build-step
 
-Now, goto Dashboard → Manage Jenkins → Tools →
-<img width="526" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/b3c34bfd-4ea5-4d72-b132-46a026dd6537">
+- Now, goto Dashboard → Manage Jenkins → Tools → Docker installations
+![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/ae0aede3-cc05-4395-8fc9-4d25d5df8899)
 
-
-
-Add DockerHub Username and Password under Global Credentials
-
+- Add DockerHub Username and Password under Global Credentials --> Dashboard -->Manage Jenkins -->Credentials -->System -->Global credentials (unrestricted)
 <img width="526" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/c14e6297-2fab-4ed5-a35e-2f832f7a8489">
 
-
-Add this stage in Pipeline Script
+- Add this stage in Pipeline Script
 ```bash
 stage("Docker Build & Push"){
     steps{
@@ -286,19 +236,23 @@ stage("Docker Build & Push"){
 }
 ```
 
-
-Now, when you do
+- Now, when you do
 ```bash
 docker images
 ```
 
-When you log in to Dockerhub, you will see a new image is created
+- Docker Containers
+```bash
+docker ps
+```
+
+- When you log in to Dockerhub, you will see a new image is created
+<img width="944" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/f2d0aa93-2247-4c51-b8b0-ee25ca707c50">
 
 
-
-
-Step 7 — Deploy image using Docker
-Add this stage to your pipeline syntax
+# Step 7 :-
+- Deploy image using Docker
+- Add this stage to your pipeline syntax
 ```bash
 stage("Deploy Using Docker"){
     steps{
@@ -306,10 +260,12 @@ stage("Deploy Using Docker"){
     }
 }
 ```
+![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/9d3e4049-db1a-4b9c-a24d-9cd741cd1ea7)
 
 
 
-Step 8 — Terminate the AWS EC2 Instance
+# Step 8 :-
+- Terminate the AWS EC2 Instance
 
 
 
