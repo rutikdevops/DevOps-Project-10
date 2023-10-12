@@ -155,44 +155,14 @@ pipeline {
 - Goto Dashboard → Manage Jenkins → Credentials → Global Credentials --> Add Credential --> Add Secret Text
 - ![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/80a76ad2-ebc6-468d-9ac5-d1f5ba42c2fc)
 
-<img width="449" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/1eb95dcf-6d5a-47d4-94dc-6c1c57975287">
-
-Now, goto Dashboard → Manage Jenkins → Configure System
+- Now, goto Dashboard → Manage Jenkins → Configure System --> SonarQube installations
 <img width="946" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/3c11ed4e-ebc7-4e3b-a30b-bbad6ec35732">
 
-Configure System option is used in Jenkins to configure different server
-Global Tool Configuration is used to configure different tools that we install using Plugins
-We will install sonar-scanner in tools.
-
-Lets goto our Pipeline and add Sonar-qube Stage in our Pipeline Script
+- SonarQube --> Administration --> Configurations --> Webhooks --> Create
+<img width="959" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/fd64c1a6-c0ac-42c9-9ed9-48451c94f227">
 
 
 ```bash
-pipeline {
-    agent any 
-      
-    tools{
-        jdk 'jdk11'
-        maven 'maven3'
-    }
-    
-    stages{
-        stage('clean workspace'){
-             steps{
-                 cleanWs()
-             }
-         }
-        stage("Git Checkout"){
-            steps{
-                git 'https://github.com/Aj7Ay/amazon-eks-jenkins-terraform-aj7.git'
-            }
-        }
-        
-        stage("Maven Compile"){
-            steps{
-                sh "mvn clean compile"
-            }
-        }
         stage("Sonarqube Analysis "){
             steps{
                 script{
@@ -209,12 +179,9 @@ pipeline {
                 }
             }
         }
-    }
-}
 ```
 
-To see the report, you can goto Sonarqube Server and goto Projects.
-
+- To see the report, you can goto Sonarqube Server and goto Projects.
 <img width="960" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/f012fd67-f297-41cf-849d-7a2d6cb41140">
 
 Step 5 — Install OWASP Dependency Check Plugins
