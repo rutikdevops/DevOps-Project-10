@@ -220,8 +220,136 @@ pipeline {
 }
 ```
 
+To see the report, you can goto Sonarqube Server and goto Projects.
+
+<img width="960" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/f012fd67-f297-41cf-849d-7a2d6cb41140">
+
+Step 5 — Install OWASP Dependency Check Plugins
+GotoDashboard → Manage Jenkins → Plugins → OWASP Dependency-Check. Click on it and install without restart.
+
+First, we configured Plugin and next we have to configure Tool
+Goto Dashboard → Manage Jenkins → Tools →
+<img width="526" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/200479c7-639a-456e-af4a-f2e0c885f014">
 
 
+Now goto configure → Pipeline and add this stage to your pipeline
+
+```bash
+pipeline {
+    agent any 
+      
+    tools{
+        jdk 'jdk11'
+        maven 'maven3'
+    }
+    
+    stages{
+        stage('clean workspace'){
+             steps{
+                 cleanWs()
+             }
+         }
+        stage("Git Checkout"){
+            steps{
+                git 'https://github.com/Aj7Ay/amazon-eks-jenkins-terraform-aj7.git'
+            }
+        }
+        
+        stage("Maven Compile"){
+            steps{
+                sh "mvn clean compile"
+            }
+        }
+        stage("Sonarqube Analysis "){
+            steps{
+                script{
+                withSonarQubeEnv(credentialsId: 'Sonar-token') {
+                sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
+        stage('Quality Gate'){
+            steps{
+                script{
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
+                }
+            }
+        }
+        stage("OWASP Dependency Check"){
+            steps{
+                dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'DP-Check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
+        stage("Build war file"){
+            steps{
+                sh " mvn clean install"
+            }
+        }
+    }
+}
+```
+
+
+Step 6 — Docker Image Build and Push
+We need to install Docker tool in our system, Goto Dashboard → Manage Plugins → Available plugins → Search for Docker and install these plugins
+Docker
+Docker Commons
+Docker Pipeline
+Docker API
+docker-build-step
+and click on install without restart
+
+Now, goto Dashboard → Manage Jenkins → Tools →
+<img width="526" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/b3c34bfd-4ea5-4d72-b132-46a026dd6537">
+
+
+
+Add DockerHub Username and Password under Global Credentials
+
+<img width="526" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/c14e6297-2fab-4ed5-a35e-2f832f7a8489">
+
+
+Add this stage in Pipeline Script
+```bash
+stage("Docker Build & Push"){
+    steps{
+        script{
+        withDockerRegistry(credentialsId: 'docker' , toolName: 'docker') {
+                sh "docker build -t petclinic1 ."
+                sh "docker tag petclinic1 rutikdevops/pet-clinic123:latest "
+                sh "docker push rutikdevops/pet-clinic123:latest "
+            }
+        }
+    }
+}
+```
+
+
+Now, when you do
+```bash
+docker images
+```
+
+When you log in to Dockerhub, you will see a new image is created
+
+
+
+
+Step 7 — Deploy image using Docker
+Add this stage to your pipeline syntax
+```bash
+stage("Deploy Using Docker"){
+    steps{
+        sh " docker run -d --name pet1 -p 8082:8080 rutikdevops/pet-clinic123:latest "
+    }
+}
+```
+
+
+
+Step 8 — Terminate the AWS EC2 Instance
 
 
 
