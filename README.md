@@ -90,6 +90,10 @@ echo "deb [signed-by=/usr/share/keyrings/trivy.gpg] https://aquasecurity.github.
 sudo apt-get update
 sudo apt-get install trivy -y
 ```
+```bash
+chmod 700 trivy.sh
+./trivy.sh
+```
 - Next, we will login to Jenkins and start to configure our Pipeline in Jenkins
 
 
