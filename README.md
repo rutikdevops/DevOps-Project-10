@@ -162,13 +162,63 @@ Copy this Token ,
 Goto Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
 
 
+<img width="449" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/1eb95dcf-6d5a-47d4-94dc-6c1c57975287">
+
+Now, goto Dashboard → Manage Jenkins → Configure System
+<img width="444" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/d8d9b729-41c4-4c85-911a-cce44b96c03c">
+
+Configure System option is used in Jenkins to configure different server
+Global Tool Configuration is used to configure different tools that we install using Plugins
+We will install sonar-scanner in tools.
+
+Lets goto our Pipeline and add Sonar-qube Stage in our Pipeline Script
 
 
-
-
-
-
-
+```bash
+pipeline {
+    agent any 
+      
+    tools{
+        jdk 'jdk11'
+        maven 'maven3'
+    }
+    
+    stages{
+        stage('clean workspace'){
+             steps{
+                 cleanWs()
+             }
+         }
+        stage("Git Checkout"){
+            steps{
+                git 'https://github.com/Aj7Ay/amazon-eks-jenkins-terraform-aj7.git'
+            }
+        }
+        
+        stage("Maven Compile"){
+            steps{
+                sh "mvn clean compile"
+            }
+        }
+        stage("Sonarqube Analysis "){
+            steps{
+                script{
+                withSonarQubeEnv(credentialsId: 'Sonar-token') {
+                sh 'mvn sonar:sonar'
+                    }
+                }
+            }
+        }
+        stage('Quality Gate'){
+            steps{
+                script{
+                    waitForQualityGate abortPipeline: false, credentialsId: 'Sonar-token'
+                }
+            }
+        }
+    }
+}
+```
 
 
 
