@@ -151,13 +151,12 @@ pipeline {
 - Grab the Public IP Address of your EC2 Instance, Sonarqube works on Port 9000 , sp <Public IP>:9000. Goto your Sonarqube Server. Click on Administration → Security → Users → Click on Tokens and Update Token → Give it a name → and click on Generate Token
 ![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/3173b9cb-ad23-47ac-ac6a-79f4e0889c87)
 
-<img width="482" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/c3bae880-2c47-46f6-98dc-6877b9e5a233">
+![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/b8d96e51-3130-4bba-afab-e26ec390a4f4)
 
-Click on Update Token
-<img width="482" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/3dff25d3-fc8f-4b57-9ab1-d93cbae30e40">
-
-Copy this Token ,
-Goto Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
+- Click on Update Token --> Copy this Token --> Goto Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
+<img width="958" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/92829e38-a610-4eef-a84a-2e092a395d13">
+- Click on Add credentials :-
+<img width="960" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/b6513cdc-6b10-49c5-b6e4-0ed327a54c72">
 
 
 <img width="449" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/1eb95dcf-6d5a-47d4-94dc-6c1c57975287">
