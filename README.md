@@ -16,22 +16,17 @@ Step 8 — Access the Real World Application
 Step 9 — Terminate the AWS EC2 Instance
 
 
-Now, lets get started and dig deeper into each of these steps :-
+- Now, lets get started and dig deeper into each of these steps :-
 
-Step 1 — Launch an AWS T2 Large Instance. Use the image as Ubuntu. You can create a new key pair or use an existing one. Enable HTTP and HTTPS settings in the Security Group.
+# Step 1 — Launch an AWS T2 Large Instance. Use the image as Ubuntu. You can create a new key pair or use an existing one. Enable HTTP and HTTPS settings in the Security Group.
 
-Step 2 — Install Jenkins, Docker and Trivy
+# Step 2 — Install Jenkins, Docker and Trivy
 
-
-
-2A — To Install Jenkins
+# 2A — To Install Jenkins
 Connect to your console, and enter these commands to Install Jenkins
-
-
 ```bash
 vi jenkins.sh
 ```
-
 ```bash
 #!/bin/bash
 sudo apt update -y
@@ -50,8 +45,6 @@ sudo apt-get install jenkins -y
 sudo systemctl start jenkins
 sudo systemctl status jenkins
 ```
-
-
 ```bash
 sudo chmod 777 jenkins.sh
 ./jenkins.sh
@@ -63,11 +56,10 @@ sudo chmod 777 jenkins.sh
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 ```
 
-2B — Install Docker
+# 2B — Install Docker
 ```bash
 vi docker.sh
 ```
-
 ```bash
 sudo apt-get update
 sudo apt-get install docker.io -y
@@ -76,7 +68,6 @@ newgrp docker
 sudo chmod 777 /var/run/docker.sock
 docker ps
 ```
-
 ```bash
 chmod 700 docker.sh
 ./docker.sh
@@ -84,16 +75,14 @@ systemctl start docker
 systemctl enable docker
 ```
 - After the docker installation, we create a sonarqube container (Remember added 9000 port in the security group)
-
 ```bash
 docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
 ```
 
-2C — Install Trivy
+# 2C — Install Trivy
 ```bash
 vi trivy.sh
 ```
-
 ```bash
 sudo apt-get install wget apt-transport-https gnupg lsb-release -y
 wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | gpg --dearmor | sudo tee /usr/share/keyrings/trivy.gpg > /dev/null
@@ -105,16 +94,16 @@ sudo apt-get install trivy -y
 
 
 
-Step 3 — Install Plugins like JDK, Sonarqube Scanner, Maven, OWASP Dependency Check,
-3A — Install Plugin
-Goto Manage Jenkins →Plugins → Available Plugins →
-Install below plugins
+# Step 3 — Install Plugins like JDK, Sonarqube Scanner, Maven, OWASP Dependency Check,
+# 3A — Install Plugin
+- Goto Manage Jenkins →Plugins → Available Plugins →
+- Install below plugins
 1 → Eclipse Temurin Installer (Install without restart)
 2 → SonarQube Scanner (Install without restart)
-3B — Configure Java and Maven in Global Tool Configuration
-Goto Manage Jenkins → Tools → Install JDK and Maven3 → Click on Apply and Save
-3C — Create a Job
-Label it as Real-World CI-CD, click on Pipeline and Ok.
+# 3B — Configure Java and Maven in Global Tool Configuration
+- Goto Manage Jenkins → Tools → Install JDK and Maven3 → Click on Apply and Save
+# 3C — Create a Job
+- Label it as Real-World CI-CD, click on Pipeline and Ok.
 
 
 Enter this in Pipeline Script
