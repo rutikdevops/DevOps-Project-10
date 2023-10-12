@@ -15,11 +15,12 @@
 - Step 8 — Access the Real World Application
 - Step 9 — Terminate the AWS EC2 Instance
 
-- Now, lets get started and dig deeper into each of these steps :-
 
-# Step 1 — Launch an AWS T2 Large Instance. Use the image as Ubuntu. You can create a new key pair or use an existing one. Enable HTTP and HTTPS settings in the Security Group.
+# Step 1 :-
+-  Launch an AWS T2 Large Instance. Use the image as Ubuntu. You can create a new key pair or use an existing one. Enable HTTP and HTTPS settings in the Security Group.
 
-# Step 2 — Install Jenkins, Docker and Trivy
+# Step 2 :-
+- Install Jenkins, Docker and Trivy
 
 - 2A — To Install Jenkins
 Connect to your console, and enter these commands to Install Jenkins
@@ -93,7 +94,8 @@ sudo apt-get install trivy -y
 
 
 
-# Step 3 — Install Plugins like JDK, Sonarqube Scanner, Maven, OWASP Dependency Check,
+# Step 3 :-
+- Install Plugins like JDK, Sonarqube Scanner, Maven, OWASP Dependency Check,
 - 3A — Install Plugin
 - Goto Manage Jenkins →Plugins → Available Plugins →
 - Install below plugins
@@ -138,7 +140,8 @@ pipeline {
 
 
 
-Step 4 — Configure Sonar Server in Manage Jenkins
+# Step 4 :-
+- Configure Sonar Server in Manage Jenkins
 Grab the Public IP Address of your EC2 Instance, Sonarqube works on Port 9000 , sp <Public IP>:9000. Goto your Sonarqube Server. Click on Administration → Security → Users → Click on Tokens and Update Token → Give it a name → and click on Generate Token
 
 <img width="482" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/c3bae880-2c47-46f6-98dc-6877b9e5a233">
