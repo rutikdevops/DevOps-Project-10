@@ -155,17 +155,10 @@ pipeline {
 - Goto Dashboard → Manage Jenkins → Credentials → Global Credentials --> Add Credential --> Add Secret Text
 - ![image](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/80a76ad2-ebc6-468d-9ac5-d1f5ba42c2fc)
 
-- <img width="960" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/01e8e417-f66f-4387-af0c-ec2a2a2446f0">
-
-<img width="958" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/92829e38-a610-4eef-a84a-2e092a395d13">
-- Click on Add credentials :-
-<img width="960" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/b6513cdc-6b10-49c5-b6e4-0ed327a54c72">
-
-
 <img width="449" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/1eb95dcf-6d5a-47d4-94dc-6c1c57975287">
 
 Now, goto Dashboard → Manage Jenkins → Configure System
-<img width="444" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/d8d9b729-41c4-4c85-911a-cce44b96c03c">
+<img width="946" alt="image" src="https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/3c11ed4e-ebc7-4e3b-a30b-bbad6ec35732">
 
 Configure System option is used in Jenkins to configure different server
 Global Tool Configuration is used to configure different tools that we install using Plugins
