@@ -2,6 +2,7 @@
 ![Project-10](https://github.com/rutikdevops/DevOps-Project-10/assets/109506158/41d11810-20b2-4931-b74f-c86a7fff3343)
 
 # Project Blog link :-
+- https://medium.com/@rutikdevops/deploying-a-pet-clinic-java-based-application-ea583e633417
 
 # Project Overview :-
 - Deploying a Pet Clinic Java Based Application. This is an everyday use case scenario used by several organizations. We will be using Jenkins as a CICD tool and deploying our application on Docker container.
